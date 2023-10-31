@@ -13,7 +13,14 @@ const useStore = create( (set,get) => ({
   alertText:"", 
   alertOpen:false,
  imageUrl:"",
+ logIn:async(login,pass)=>{
+  let resp= await axios.post("http://194.8.147.150:4001/api/logIn",{login:login.trim(),password:pass.trim()})
+  let data=resp.data
 
+  if(data.flag){
+      return true
+  }else return false
+ },
  updateUrl(text,id){
    
   let arr=get().mgoods.map(e=>{
@@ -52,6 +59,17 @@ setAlertOpen(f){
       
     }
   },
+  async getGoods (id_cat) {
+    try {
+     
+      const response=await $api.post("/get-all-goods-by-cat",{id_cat:id_cat})
+      const data=response.data
+     return data
+    } catch (error) {
+      console.log(error);
+      
+    }
+  },
   async getAllCat () {
     try {
       const response=await $api.get("/get-all-cat")
@@ -63,13 +81,22 @@ setAlertOpen(f){
       
     }
   },
-  async deleteGood (id,good) {
+  async deleteGood (id) {
     try {
       const response=await $api.put("/delete-good",{id:id})
       const data=response.data
+
+    } catch (error) {
+      console.log(error);
       
-      set(state=>({...state,goods:[...good]}))
-      get().modiffyCat()
+    }
+  },
+  async deleteCat (id) {
+    try {
+      const response=await $api.put("/delete-cat",{id:id})
+      const data= response.data
+      const newcat=get().cat.filter(e=>e.id!=id)
+      set(state=>({...state,cat:[...newcat]}))
 
     } catch (error) {
       console.log(error);
@@ -83,25 +110,45 @@ setAlertOpen(f){
    set(state=>({...state,mgoods:[...data]}))
 
   },
-  async updateRows(rows,updatedRow){
+  async updateRows(updatedRow){
  try {
    
   
-
+  get().setLoader(true)
   const response= await $api.put('/update-good',{
-    ...updatedRow,id_cat:get().cat.filter(e=>e.cat==updatedRow.cat).id
+    ...updatedRow
   })
   set(state=>({...state.goods,goods:[...rows]}))
-  // get().getAllGoods()
-  // get().modiffyCat()
-
-
-
-
+  get().setLoader(true)
  } catch (error) {
   
  }
+ finally {
+  get().setLoader(false)
+ }
   
+
+  },
+  async addCat(cat){
+    try {
+      const resp= await $api.post("/add-cat",{...cat})
+      const data=resp.data
+      set(state=>({...state,cat:[...state.cat,data]}))
+      return data
+    } catch (error) {
+      return false
+    }
+
+  },
+  async addGood(good){
+    try {
+      const resp= await $api.post("/add-good",{...good})
+      const data=resp.data
+      return data
+      
+    } catch (error) {
+      return false
+    }
 
   }
 
