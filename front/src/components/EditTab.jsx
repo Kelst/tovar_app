@@ -35,11 +35,12 @@ const handleRemoveCat=()=>{
       <ModalAddCat open={openAdd} setOpen={setOpenAdd} />
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <div className='flex justify-start   top-0 gap-0  md:justify-end md:top-10'>
-            <div className=' w-40 z-100'>
-        <Button onClick={handleAddCat} className=' w-40 ' startIcon={<AddCircleOutlineIcon className='' />}/>
-        <Button onClick={handleRemoveCat} className=' w-40 '  startIcon={<RemoveCircleOutlineIcon/>}/>
-        </div></div>
+          <div className='flex justify-start     top-0 gap-0  md:justify-end md:top-10'>
+            <div className=' flex flex-col   w-60 z-100  border-r border-b'>
+        <Button onClick={handleAddCat} className=' w-60   ' startIcon={<AddCircleOutlineIcon />}>Додати категорію</Button>
+        <Button onClick={handleRemoveCat} className='w-60 '  startIcon={<RemoveCircleOutlineIcon/>}>Видалити категорію</Button>
+        </div>
+        </div>
 
           <TabList className=' ' onChange={handleChange} aria-label="lab API tabs example">
             {
