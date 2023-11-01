@@ -21,11 +21,11 @@ export default function Layout() {
     await getAllGoods()
     await getAllCat()
     modiffyCat()
-    const cookieData = Cookies.get('login');
+    // const cookieData = Cookies.get('login');
   
-    if (!cookieData) {
-      navigate("/login") 
-    }
+    // if (!cookieData) {
+    //   navigate("/login") 
+    // }
     
   }
 fetchData()

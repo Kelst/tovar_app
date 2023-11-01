@@ -24,9 +24,9 @@ export default function CardItem({good,setGoods}) {
     {
         <div>
               <ModalEdited good={good} setGoods={setGoods} open={openEdit} setOpen={setOpenEdit}  /> 
-       <div className='flex gap-20'>
-<div className='w-96 border p-4 shadow-md  h-76  overflow-y-auto'>
-<div className='mb-2'>
+       <div className='flex gap-20 flex-col md:flex-row'>
+<div className='w-[1000px] border p-4 shadow-md  h-76  overflow-y-auto'>
+<div className='mb-2 '>
 <span className='font-bold'>Назва:</span> {good.name}
 </div>
 <div className='mb-2'>
