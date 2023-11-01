@@ -17,7 +17,7 @@ export default function EditTab() {
   const [openAdd, setOpenAdd] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
   const cat=useStore(state=>state.cat)
-  const [value, setValue] = React.useState(`${cat[0]}`);
+  const [value, setValue] = React.useState(`2`);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
