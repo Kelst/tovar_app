@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const API_URL=`http://194.8.147.150:4001/api/`
 const $api=axios.create({
-    withCredentials:true,
+   
     baseURL:API_URL
 })
 $api.interceptors.request.use((config)=>{
