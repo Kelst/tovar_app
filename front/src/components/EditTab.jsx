@@ -13,11 +13,11 @@ import ModalAddCat from './ModalAddCat';
 import DialogAlert from './DialogAlert';
 import ModalDeleteCat from './ModalDeleteCat';
 export default function EditTab() {
-  const [value, setValue] = React.useState('1');
+
   const [openAdd, setOpenAdd] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
   const cat=useStore(state=>state.cat)
-
+  const [value, setValue] = React.useState(`${cat[0]}`);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

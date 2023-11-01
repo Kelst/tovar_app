@@ -93,7 +93,7 @@ setOpen(false);
                   onClick={handleSave}
                   loading={loader}
                 >  
-                  Додати товар
+                  Додати категорію
                 </LoadingButton>
               ) : (
                 <Button
@@ -101,7 +101,7 @@ setOpen(false);
                   variant="outlined"
                   startIcon={<AddIcon />}
                 >
-                  Додати товар
+                  Додати категорію
                 </Button>
               )}
             </div>
