@@ -38,9 +38,9 @@ export default function CardItem({good,setGoods}) {
 <div className='mb-2'>
 <span className='font-bold'>Кількість:</span> {good.quantity}
 </div>
-<div className='mb-2'>
+{/* <div className='mb-2'>
 <span className='font-bold'>Title:</span> {good.title}
-</div>
+</div> */}
 <div className='mb-2'>
 <span className='font-bold'>Ціна тижня:</span> {good.unique_price}
 </div>

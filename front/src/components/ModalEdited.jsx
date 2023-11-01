@@ -49,8 +49,8 @@ export default function ModalEdited({ good,open,setOpen,setGoods}) {
       name.trim() === "" ||
       cost==0 ||
       text.trim() === "" ||
-      url.trim() === "" ||
-      title.trim() === ""
+      url.trim() === "" 
+
     ) {
       return false; // Якщо хоча б одне поле порожнє, повертаємо false
     }
@@ -153,6 +153,28 @@ setOpen(false);
     setUrl(good.url)
     
   },[])
+
+  useEffect(() => {
+    // Додаємо обробник події для вікна, який слідкуватиме за натисканням Ctrl + V
+    const handlePaste = (event) => {
+      if (event.ctrlKey && event.key === "v") {
+        event.preventDefault(); // Забороняємо стандартну обробку події вставки
+
+        // Отримуємо вміст буфера обміну
+        navigator.clipboard.readText().then((clipboardText) => {
+          // Вставляємо вміст буфера обміну в поле url
+         setUrl(clipboardText);
+          setUrl(clipboardText); // Оновлюємо стан, якщо потрібно
+        });
+      }
+    };
+
+    window.addEventListener("keydown", handlePaste);
+
+    return () => {
+      window.removeEventListener("keydown", handlePaste);
+    };
+  }, []);
   return (
     <div>
 
@@ -199,7 +221,12 @@ setOpen(false);
                 multiline
                 maxRows={6}
                 onChange={(event) => {
-                  setText(event.target.value);
+                 
+                  const inputText = event.target.value;
+ 
+  if (inputText.length <= 2000) {
+    setText(inputText);
+  }
                 }}
               />
                   <TextField
@@ -227,14 +254,14 @@ setOpen(false);
 
       </LoadingButton> 
 </label>
-<TextField
+{/* <TextField
                 id="title"
                 label="Заголовок"
                 value={title}
                 onChange={(event) => {
                   setTitle(event.target.value);
                 }}
-              />
+              /> */}
               <TextField
                 id="unique_price"
                 label="Ціна тижня"
