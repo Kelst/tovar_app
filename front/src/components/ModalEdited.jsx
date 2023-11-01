@@ -155,7 +155,7 @@ setOpen(false);
   },[])
 
   useEffect(() => {
-    // Додаємо обробник події для вікна, який слідкуватиме за натисканням Ctrl + V
+
     const handlePaste = (event) => {
       if (event.ctrlKey && event.key === "v") {
         event.preventDefault(); // Забороняємо стандартну обробку події вставки
