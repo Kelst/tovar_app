@@ -49,7 +49,7 @@ const data= await addCat(edited)
 setOpen(false);
 }
   function checkFilds() {
-    if (cat != "" || state != "") {
+    if (cat != "") {
       return true;
     } else return false;
   }
@@ -85,15 +85,7 @@ setOpen(false);
                   setCat(event.target.value);
                 }}
               />
-                <TextField
-                id="state"
-                label="Стан"
-                type="number"
-                value={state}
-                onChange={(event) => {
-                  setState(event.target.value);
-                }}
-              /> 
+               
               {checkFilds() ? (
                 <LoadingButton
                   variant="outlined"
