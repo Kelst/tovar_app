@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const port = 4002;
+const port = 4003;
 
 // Статичні файли зі скомпільованого Vite проекту
 app.use(express.static(path.join(__dirname, '../dist')));
