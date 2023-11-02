@@ -251,7 +251,7 @@ setOpen(false);
                <label htmlFor="upload-photo" className=" flex  flex-col">
                <div className="flex gap-5 mb-2 relative z-50  items-center">
                   <div className=" w-[500px] overflow-hidden"> <span>Url зображення: {url}  </span> </div>
-                   <div className=" cursor-pointer" onClick={handlePasteFromClipboard} > <ContentPasteIcon  /></div>
+                   <div className=" cursor-pointer" onClick={handlePasteFromClipboard} > <ContentPasteIcon  /> Вставити зображення з буферу</div>
                 </div>
   <input
     style={{ display: 'none' }}
