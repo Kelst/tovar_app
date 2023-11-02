@@ -46,22 +46,44 @@ export default function ModalEdited({ good,open,setOpen,setGoods}) {
   const updateRows=useStore(state=>state.updateRows)
   const setAlertText=useStore(state=>state.setAlertText)
   const setAlertOpen=useStore(state=>state.setAlertOpen)
- const handlePasteFromClipboard=(e)=>{
+ const handlePasteFromClipboard=async(e)=>{
   e.preventDefault(); 
-  navigator.clipboard.readText().then((clipboardText) => {
-    // setTextInfo("URL силка картинки вставлена з буферу обміну")
-    // setOpenInfo(true)
-    console.log(clipboardText);
-    if(clipboardText==""){
-      setAlertText("В буфері обміну нічого немає")
-      setAlertOpen(true)
-    }else {
-         setAlertText("Як URL силка картинки вставлена з буферу обміну")
-    setAlertOpen(true)
+  await  navigator.permissions.query({ name: 'clipboard-read' })
+  async function getClipboardContents() {
+    try {
+      const clipboardItems = await navigator.clipboard.read();
+  
+      for (const clipboardItem of clipboardItems) {
+        for (const type of clipboardItem.types) {
+          const blob = await clipboardItem.getType(type);
+          if(type.includes("image"))
+       {   console.log(blob);
+          const formData = new FormData();
+          formData.append('file', blob);
+          setLoader(true)
+        let  resp=await axios.post('http://194.8.147.150:4001/api/storage', formData, {
+        
+headers: {
+  'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+},
+}) 
+setUrl(resp.data);
+setLoader(false)
+setAlertText("Зображення завантажено")
+setAlertOpen(true)
+console.log(resp.data);
+}
+
+        }
+      }
+    } catch (err) {
+      console.error(err.name, err.message);
     }
- 
-    setUrl(clipboardText);
-  });
+  }
+await getClipboardContents()
+  // navigator.permissions.query({name:"clipboard"})
+
+
  }
 
 
