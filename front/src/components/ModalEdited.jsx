@@ -11,6 +11,7 @@ import { FilledInput, Input, TextField, TextareaAutosize } from "@mui/material";
 import useStore from "../store/store";
 import axios from "axios";
 import { LoadingButton } from "@mui/lab";
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 
 
 const style = {
@@ -33,16 +34,38 @@ export default function ModalEdited({ good,open,setOpen,setGoods}) {
   const [name, setName] = React.useState("");
   const [cost, setCost] = React.useState("");
   const [text, setText] = React.useState("");
+  
+  const [textInfo,setTextInfo]=React.useState("");
   const [quantity, setQuantity] = React.useState("");
   const [url, setUrl] = React.useState("");
   const [title, setTitle] = React.useState("");
+  
   const [uniquePrice, setUniquePrice] = React.useState(0);
   const setLoader=useStore(state=>state.setLoader)
   const loader=useStore(state=>state.loader)
   const updateRows=useStore(state=>state.updateRows)
-
   const setAlertText=useStore(state=>state.setAlertText)
   const setAlertOpen=useStore(state=>state.setAlertOpen)
+ const handlePasteFromClipboard=(e)=>{
+  e.preventDefault(); 
+  navigator.clipboard.readText().then((clipboardText) => {
+    // setTextInfo("URL силка картинки вставлена з буферу обміну")
+    // setOpenInfo(true)
+    console.log(clipboardText);
+    if(clipboardText==""){
+      setAlertText("В буфері обміну нічого немає")
+      setAlertOpen(true)
+    }else {
+         setAlertText("Як URL силка картинки вставлена з буферу обміну")
+    setAlertOpen(true)
+    }
+ 
+    setUrl(clipboardText);
+  });
+ }
+
+
+  
 
   function areFieldsNotEmpty() {
     if (
@@ -154,27 +177,7 @@ setOpen(false);
     
   },[])
 
-  useEffect(() => {
 
-    const handlePaste = (event) => {
-      if (event.ctrlKey && event.key === "v") {
-        event.preventDefault(); // Забороняємо стандартну обробку події вставки
-
-        // Отримуємо вміст буфера обміну
-        navigator.clipboard.readText().then((clipboardText) => {
-          // Вставляємо вміст буфера обміну в поле url
-         setUrl(clipboardText);
-          setUrl(clipboardText); // Оновлюємо стан, якщо потрібно
-        });
-      }
-    };
-
-    window.addEventListener("keydown", handlePaste);
-
-    return () => {
-      window.removeEventListener("keydown", handlePaste);
-    };
-  }, []);
   return (
     <div>
 
@@ -192,6 +195,7 @@ setOpen(false);
           },
         }}
       >
+      
         <Fade in={open}>
           <Box sx={style}  className=" rounded-xl">
             
@@ -239,7 +243,11 @@ setOpen(false);
                 }}
               /> 
                <label htmlFor="upload-photo" className=" flex  flex-col">
-                <span>Url зображення: {url}</span> 
+                <div className="flex gap-5 mb-2 relative z-50  items-center">
+                  <div className=" w-[500px] overflow-hidden"> <span>Url зображення: {url}  </span> </div>
+                   <div className=" cursor-pointer" onClick={handlePasteFromClipboard} > <ContentPasteIcon  /></div>
+                </div>
+               
   <input
     style={{ display: 'none' }}
     id="upload-photo"

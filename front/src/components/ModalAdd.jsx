@@ -3,6 +3,7 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
@@ -61,8 +62,26 @@ export default function ModalAdd({id_cat,open,setOpen,setGoods}) {
   }
 // const editedTransport=useStore(state=>state.editedTransport)
 // const getAllCategory=useStore(state=>state.getAllCategory)
+const handlePasteFromClipboard=(e)=>{
+  e.preventDefault(); 
+  navigator.clipboard.readText().then((clipboardText) => {
+    // setTextInfo("URL силка картинки вставлена з буферу обміну")
+    // setOpenInfo(true)
+    console.log(clipboardText);
+    if(clipboardText==""){
+      setAlertText("В буфері обміну нічого немає")
+      setAlertOpen(true)
+    }else {
+         setAlertText("Як URL силка картинки вставлена з буферу обміну")
+    setAlertOpen(true)
+    }
  
-const handleClose = () => setOpen(false);
+    setUrl(clipboardText);
+  });
+ }
+const handleClose = () => {
+  
+  setOpen(false)};
 const handleFileChange =async (e) => {
     
   let resp
@@ -130,6 +149,15 @@ const data= await addGood(edited)
 setGoods(prev => {
   return [...prev,data]
 });
+setName("")
+setCost("")
+setUnique(1)
+setState(1)
+setText("")
+setQuantity(0)
+setUrl("")
+setTitle("")
+setUniquePrice(0)
 
 setOpen(false);
 }
@@ -199,7 +227,10 @@ setOpen(false);
                 }}
               /> 
                <label htmlFor="upload-photo" className=" flex  flex-col">
-                <span>Url зображення: {url}</span> 
+               <div className="flex gap-5 mb-2 relative z-50  items-center">
+                  <div className=" w-[500px] overflow-hidden"> <span>Url зображення: {url}  </span> </div>
+                   <div className=" cursor-pointer" onClick={handlePasteFromClipboard} > <ContentPasteIcon  /></div>
+                </div>
   <input
     style={{ display: 'none' }}
     id="upload-photo"

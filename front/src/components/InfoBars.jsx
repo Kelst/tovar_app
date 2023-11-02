@@ -8,7 +8,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function InfoBars({open,setOpen,text,duration=4000}) {
+export default function InfoBars({open,setOpen,text,duration=1000}) {
   const handleClick = () => {
     setOpen(true);
   };
