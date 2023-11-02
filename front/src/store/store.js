@@ -14,7 +14,7 @@ const useStore = create( (set,get) => ({
   alertOpen:false,
  imageUrl:"",
  logIn:async(login,pass)=>{
-  let resp= await axios.post("http://194.8.147.150:4001/api/logIn",{login:login.trim(),password:pass.trim()})
+  let resp= await axios.post("https://shop-intelekt.pp.ua/api/login",{login:login.trim(),password:pass.trim()})
   let data=resp.data
 
   if(data.flag){

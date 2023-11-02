@@ -61,7 +61,7 @@ export default function ModalEdited({ good,open,setOpen,setGoods}) {
           const formData = new FormData();
           formData.append('file', blob);
           setLoader(true)
-        let  resp=await axios.post('http://194.8.147.150:4001/api/storage', formData, {
+        let  resp=await axios.post('https://shop-intelekt.pp.ua/api/storage', formData, {
         
 headers: {
   'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
@@ -77,7 +77,7 @@ console.log(resp.data);
         }
       }
     } catch (err) {
-      console.error(err.name, err.message);
+      console.error(err);
     }
   }
 await getClipboardContents()

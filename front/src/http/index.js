@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL=`http://194.8.147.150:4001/api/`
+export const API_URL=`https://shop-intelekt.pp.ua/api`
 const $api=axios.create({
    
     baseURL:API_URL
