@@ -240,6 +240,18 @@ setOpen(false);
                 }}
               /> 
               <TextField
+                id="title"
+                label="Короткий опис"
+                value={title}
+                onChange={(event) => {
+                  const inputText = event.target.value;
+                  if (inputText.length <= 300) {
+                    setTitle(inputText);
+                  }
+             
+                }}
+              />
+              <TextField
                
                 id="text"
                 label="text"
@@ -284,14 +296,7 @@ setOpen(false);
 
       </LoadingButton> 
 </label>
-{/* <TextField
-                id="title"
-                label="Заголовок"
-                value={title}
-                onChange={(event) => {
-                  setTitle(event.target.value);
-                }}
-              /> */}
+
               <TextField
                 id="unique_price"
                 label="Ціна тижня"

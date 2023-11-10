@@ -230,15 +230,36 @@ setOpen(false);
               /> 
               <TextField
                
-                id="text"
-                label="Опис"
-                value={text}
-                multiline
-                maxRows={6}
-                onChange={(event) => {
-                  setText(event.target.value);
-                }}
-              />
+               id="title"
+               label=" Короткий опис"
+               value={title}
+               multiline
+               maxRows={3}
+               onChange={(event) => {
+                
+                const inputText = event.target.value;
+
+if (inputText.length <= 300) {
+  setTitle(inputText);
+}
+              }}
+             />
+              <TextField
+               
+               id="text"
+               label="text"
+               value={text}
+               multiline
+               maxRows={6}
+               onChange={(event) => {
+                
+                 const inputText = event.target.value;
+
+ if (inputText.length <= 2000) {
+   setText(inputText);
+ }
+               }}
+             />
                   <TextField
                 id="quantity"
                 label="Кількість"
@@ -267,14 +288,7 @@ setOpen(false);
 
       </LoadingButton> 
 </label>
-<TextField
-                id="title"
-                label="Заголовок"
-                value={title}
-                onChange={(event) => {
-                  setTitle(event.target.value);
-                }}
-              />
+
               <TextField
                 id="unique_price"
                 label="Ціна тижня"

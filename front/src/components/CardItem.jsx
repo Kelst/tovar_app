@@ -33,6 +33,9 @@ export default function CardItem({good,setGoods}) {
 <span className='font-bold'>Ціна:</span> {good.cost}
 </div>
 <div className='mb-2'>
+<span className='font-bold'>Короткий опис:</span> {good.title}
+</div>
+<div className='mb-2'>
 <span className='font-bold'>Опис товару:</span> {good.text}
 </div>
 <div className='mb-2'>
