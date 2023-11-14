@@ -33,6 +33,7 @@ export default function ModalEdited({ good,open,setOpen,setGoods}) {
   
   const [name, setName] = React.useState("");
   const [cost, setCost] = React.useState("");
+  
   const [text, setText] = React.useState("");
   
   const [textInfo,setTextInfo]=React.useState("");
