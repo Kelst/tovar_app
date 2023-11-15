@@ -124,7 +124,7 @@ export default function Navigation() {
                 Товари
               </Button>
                 </NavLink>
-                <NavLink to="/" >
+                <NavLink to="/orders" >
                 <Button
                 key={1}
                 onClick={()=>handleCloseNavMenu("Item2")}

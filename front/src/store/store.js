@@ -12,7 +12,22 @@ const useStore = create( (set,get) => ({
   loader:false,
   alertText:"", 
   alertOpen:false,
+  updatePAge:0,
  imageUrl:"",
+ setUpdatePAge:()=>{
+  set(state=>({...state,updatePAge:state.updatePAge+1}))
+ },
+  setInProgress:async(id,state)=>{
+
+    try {
+       let b= await $api.post("/move-order-up",{id:id,state:state<2?state+1:state})
+       console.log(b);
+      
+    } catch (e) {
+      console.log(e);
+      
+    }
+ },
  logIn:async(login,pass)=>{
   let resp= await axios.post("https://shop-intelekt.pp.ua/api/login",{login:login.trim(),password:pass.trim()})
   let data=resp.data
@@ -70,6 +85,17 @@ setAlertOpen(f){
       
     }
   },
+  async getOrders (id_cat) {
+    try {
+     
+      const response=await $api.post("/get-all-orders-by-cat",{id_cat:id_cat})
+      const data=response.data
+     return data
+    } catch (error) {
+      console.log(error);
+      
+    }
+  },
   async getAllCat () {
     try {
       const response=await $api.get("/get-all-cat")
@@ -112,7 +138,6 @@ setAlertOpen(f){
   },
   async updateRows(updatedRow){
  try {
-   
   
   get().setLoader(true)
   const response= await $api.put('/update-good',{
@@ -129,6 +154,24 @@ setAlertOpen(f){
   
 
   },
+  async updateRowsOrder(updatedRow){
+    try {
+     
+     get().setLoader(true)
+     const response= await $api.put('/update-order',{
+      order:updatedRow
+     })
+     console.log(response);
+     get().setLoader(true)
+    } catch (error) {
+     
+    }
+    finally {
+     get().setLoader(false)
+    }
+     
+   
+     },
   async addCat(cat){
     try {
       const resp= await $api.post("/add-cat",{...cat})

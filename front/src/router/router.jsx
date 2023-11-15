@@ -8,6 +8,7 @@ import {
 import Layout from "../pages/Layout/Layout";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
+import Orders from "../pages/Orders/Orders";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+      },
+      {
+        path: "/orders",
+        element: <Orders />,
       },
      
     ],
