@@ -41,6 +41,17 @@ const useStore = create( (set,get) => ({
       
     }
  },
+ setInDone:async(id,state)=>{
+
+  try {
+     let b= await $api.post("/move-order-done",{id:id,state:3})
+     console.log(b);
+    
+  } catch (e) {
+    console.log(e);
+    
+  }
+},
  logIn:async(login,pass)=>{
   let resp= await axios.post("https://shop-intelekt.pp.ua/api/login",{login:login.trim(),password:pass.trim()})
   let data=resp.data

@@ -11,11 +11,17 @@ export default function OrderItem({order,setOrders,setValue}) {
     const [openEdit,setOpenEdit]=useState(false)
     const [openDialog,setOpenDialog]=useState(false)
     const setInProgress=useStore(state=>state.setInProgress)
+    const setInDone=useStore(state=>state.setInDone)
     const setUpdatePAge=useStore(state=>state.setUpdatePAge)
     const deleteOrder=useStore(state=>state.deleteOrder)
+  
   const handleDeleteOrder=async()=>{
     setOpenDialog(true)
     
+  }
+  const handleInDone= async ()=>{
+    setUpdatePAge()
+        await setInDone(order.id)
   }
     const handleInProgress= async ()=>{
         setUpdatePAge()
@@ -42,7 +48,7 @@ export default function OrderItem({order,setOrders,setValue}) {
         <div>
               {/* <ModalEdited good={good} setGoods={setGoods} open={openEdit} setOpen={setOpenEdit}  />  */}
    
-              <div class="relative max-w-lg mx-auto bg-white rounded p-6 shadow-md">
+              <div class="relative  w-[310px] md:w-[400px] bg-white rounded p-6 shadow-md">
 
 <h1 className="text-2xl font-semibold mb-4">Інформація про замовлення</h1>
 <CopyToClipboardButton id={order.id}/>
@@ -51,7 +57,9 @@ export default function OrderItem({order,setOrders,setValue}) {
     <p className="text-gray-600">Телефон: <span className="font-semibold">{order.phone}</span></p>
     <p className="text-gray-600">Telegram ID: <span className="font-semibold">{order.telegram_id}</span></p>
 </div>
-
+<div className="mb-4">
+    <p className="text-gray-600">Дата створення: <span className="font-semibold">[ {new Date( order.date).toLocaleString()  } ]</span></p>
+</div>
 <div className="mb-4">
     <p className="text-gray-600">Адреса: <span className="font-semibold">[ {order.address} ]</span></p>
 </div>
@@ -75,10 +83,16 @@ export default function OrderItem({order,setOrders,setValue}) {
 <div className="mb-4">
     <p className="text-gray-600">Статус: <span className="font-semibold text-green-500"> {order.status==0?'Нове замовлення':order.status==1?'Опрацьовано':'Виконане'}</span></p>
 </div>
-<div class="mb-4 flex gap-1">
-<Button variant='outlined' onClick={()=>setOpenEdit(true)}>Редагувати</Button>    
-<Button variant='outlined'onClick={handleDeleteOrder} >Видалити</Button>    
-<Button variant='outlined' onClick={handleInProgress} >В Опрацьовані</Button>    
+<div class="mb-4 flex gap-1  ">
+<Button sx={{ fontSize:10}} variant='outlined' onClick={()=>setOpenEdit(true)}>Редагувати</Button>    
+<Button sx={{ fontSize:10}} variant='outlined'onClick={handleDeleteOrder} >Видалити</Button>    
+{
+  order.status!="2"?  (order.status=="0"?<Button sx={{ fontSize:10}} variant='outlined' onClick={handleInProgress} >В Опрацьовані</Button>    
+    :
+    <Button  sx={{ fontSize:10}} variant='outlined' onClick={handleInDone} >У Виконані</Button>   
+):""
+
+}
 </div>
 
 

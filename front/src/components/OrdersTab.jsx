@@ -36,10 +36,10 @@ const handleRemoveCat=()=>{
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
          
-          <TabList className=' ' onChange={handleChange} aria-label="lab API tabs example">
+          <TabList  onChange={handleChange} aria-label="lab API tabs example">
           
            
-                 <Tab key={0} label="Нові замовлення" value={`${0}`} />
+                 <Tab  key={0} label="Нові замовлення" value={`${0}`} />
                  <Tab key={1} label="Опрацьовані замовлення" value={`${1}`} />
                  <Tab key={2} label="Виконані замовлення" value={`${2}`} />
             
@@ -50,7 +50,7 @@ const handleRemoveCat=()=>{
         {
             [0,1,2].map(e=>{
               
-               return <TabPanelOrder update={value} value={`${e}`} setValue={setValue}/> 
+               return <TabPanelOrder key={e} update={value} value={`${e}`} setValue={setValue}/> 
             })
         }
       

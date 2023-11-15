@@ -26,18 +26,18 @@ const updatePAge=useStore(state=>state.updatePAge)
         fetchData(value)
 
 
-    },[update,updatePAge])
+    },[value,updatePAge])
 
     
   return (
    
-    <TabPanel value={value} sx={{ display: "grid", gridTemplateColumns: " repeat(3, 0.5fr)", gap:2, }} >
+    <TabPanel value={value} className='grid w-[350px]  grid-cols-1 gap-1 md:grid-cols-3 md:gap-x-[200px] md:w-[1200px] absolute top-[150px]' >
         {
           orders.length!=0?
             orders.map(e=>{
-            return    <OrderItem order={e} setOrders={setOrders}setValue={setValue} />
+            return    <OrderItem key={e.id} order={e} setOrders={setOrders}setValue={setValue} />
             })
-            :<div className=' text-left font-bold text-2xl mt-[-90px]'>
+            :<div className=' text-left font-bold text-2xl'>
               <p>Немає замовлень в цій категорії</p>
             </div>
         }

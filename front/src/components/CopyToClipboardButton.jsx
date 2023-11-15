@@ -11,7 +11,7 @@ const CopyToClipboardButton = ({id}) => {
   };
 
   return (
-    < div className="absolute top-2 right-1">
+    < div className="absolute top-[18px] right-[1px]">
       <IconButton onClick={handleClick} color="primary">
         <ShareIcon />
       </IconButton>
