@@ -5,7 +5,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import useStore from '../store/store';
 import TabPanels from './TabPanel';
-import { Button } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
@@ -36,7 +36,7 @@ const handleRemoveCat=()=>{
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
          
-          <TabList scrollButtons="auto"  onChange={handleChange} aria-label="lab API tabs example">
+          <TabList scrollButtons="true" visibleScrollbar={true} onChange={handleChange} aria-label="lab API tabs example">
           
            
                  <Tab  key={0} label="Нові замовлення" value={`${0}`} />
@@ -46,6 +46,10 @@ const handleRemoveCat=()=>{
           </TabList>
 
         </Box>
+        <div>
+       
+        
+        </div>
         
         {
             [0,1,2].map(e=>{
