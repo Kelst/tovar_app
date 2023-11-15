@@ -14,6 +14,19 @@ const useStore = create( (set,get) => ({
   alertOpen:false,
   updatePAge:0,
  imageUrl:"",
+
+ deleteOrder: async (id)=>{
+  try {
+    const response=await $api.put("/delete-order",{id:id})
+    const data= response.data
+    return true
+
+  } catch (error) {
+    return false
+    console.log(error);
+    
+  }
+ },
  setUpdatePAge:()=>{
   set(state=>({...state,updatePAge:state.updatePAge+1}))
  },
@@ -90,6 +103,17 @@ setAlertOpen(f){
      
       const response=await $api.post("/get-all-orders-by-cat",{id_cat:id_cat})
       const data=response.data
+     return data
+    } catch (error) {
+      console.log(error);
+      
+    }
+  },
+  async getOrder (id_cat) {
+    try {
+      const response=await $api.post("/get-order",{id:id_cat})
+      const data=response.data
+      console.log(data);
      return data
     } catch (error) {
       console.log(error);

@@ -49,7 +49,7 @@ export default function ModalEditedOrder({ order,open,setOpen,setOrder}) {
  
   function areFieldsNotEmpty() {
     if (
-      name.trim() === "" ||
+      name == "" ||
       phone === "" ||
       address === "" ||
       sum === "" ||
@@ -79,20 +79,14 @@ const edited={
    
 }
 await updateRowsOrder(edited)
-setOrder(prev => {
-  return prev.map(item => {
-    if (item.id === edited.id) { 
-      return {...edited };
-    } else {
-      return item;
-    }
-  });
-});
+
 
 setOpen(false);
 }
  
   useEffect(()=>{
+    console.log(order,"RRRRRRRRRRRRR");
+    console.log("TESSSSSSSSTTTTTTTTT");
     setName(order.name)
     setnovaPoshta(order.nova_poshta)
     setPhone(order.phone)
@@ -103,7 +97,7 @@ setOpen(false);
     setComment(order.comment)
     setStatus(order.status)
     
-  },[])
+  },[order])
 
 
   return (

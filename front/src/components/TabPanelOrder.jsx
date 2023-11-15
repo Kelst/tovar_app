@@ -33,9 +33,13 @@ const updatePAge=useStore(state=>state.updatePAge)
    
     <TabPanel value={value} sx={{ display: "grid", gridTemplateColumns: " repeat(3, 0.5fr)", gap:2, }} >
         {
+          orders.length!=0?
             orders.map(e=>{
             return    <OrderItem order={e} setOrders={setOrders}setValue={setValue} />
             })
+            :<div className=' text-left font-bold text-2xl mt-[-90px]'>
+              <p>Немає замовлень в цій категорії</p>
+            </div>
         }
     
        

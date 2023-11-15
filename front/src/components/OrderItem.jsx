@@ -6,13 +6,17 @@ import ModalEdited from './ModalEdited';
 import DialogAlert from './DialogAlert';
 import useStore from '../store/store';
 import ModalEditedOrder from './ModalEditedOrder';
+import CopyToClipboardButton from './CopyToClipboardButton';
 export default function OrderItem({order,setOrders,setValue}) {
     const [openEdit,setOpenEdit]=useState(false)
     const [openDialog,setOpenDialog]=useState(false)
     const setInProgress=useStore(state=>state.setInProgress)
     const setUpdatePAge=useStore(state=>state.setUpdatePAge)
-    const setAlertOpen=useStore(state=>state.setAlertOpen)
-  
+    const deleteOrder=useStore(state=>state.deleteOrder)
+  const handleDeleteOrder=async()=>{
+    setOpenDialog(true)
+    
+  }
     const handleInProgress= async ()=>{
         setUpdatePAge()
        
@@ -31,47 +35,49 @@ export default function OrderItem({order,setOrders,setValue}) {
   return (
     <div>
         <ModalEditedOrder order={order} setOpen={setOpenEdit} open={openEdit} setOrder={setOrders} />
-          <DialogAlert textAlert={'Ви хочете видалити товар ?'}  setOpen={setOpenDialog} open={openDialog  } />
+          <DialogAlert textAlert={'Ви хочете видалити замовлення?'}  handlefunction={()=>{
+              setUpdatePAge()
+            deleteOrder(order.id)}} setOpen={setOpenDialog} open={openDialog  } />
     {
         <div>
               {/* <ModalEdited good={good} setGoods={setGoods} open={openEdit} setOpen={setOpenEdit}  />  */}
    
-              <div class="max-w-lg mx-auto bg-white rounded p-6 shadow-md">
+              <div class="relative max-w-lg mx-auto bg-white rounded p-6 shadow-md">
 
-<h1 class="text-2xl font-semibold mb-4">Інформація про замовлення</h1>
-
+<h1 className="text-2xl font-semibold mb-4">Інформація про замовлення</h1>
+<CopyToClipboardButton id={order.id}/>
 <div class="mt-6">
-    <p class="text-gray-600">Ім'я: <span class="font-semibold">{order.name}</span></p>
-    <p class="text-gray-600">Телефон: <span class="font-semibold">{order.phone}</span></p>
-    <p class="text-gray-600">Telegram ID: <span class="font-semibold">{order.telegram_id}</span></p>
+    <p className="text-gray-600">Ім'я: <span className="font-semibold">{order.name}</span></p>
+    <p className="text-gray-600">Телефон: <span className="font-semibold">{order.phone}</span></p>
+    <p className="text-gray-600">Telegram ID: <span className="font-semibold">{order.telegram_id}</span></p>
 </div>
 
-<div class="mb-4">
-    <p class="text-gray-600">Адреса: <span class="font-semibold">[ {order.address} ]</span></p>
+<div className="mb-4">
+    <p className="text-gray-600">Адреса: <span className="font-semibold">[ {order.address} ]</span></p>
 </div>
-<div class="mb-4">
-    <p class="text-gray-600">Номер накладної пошта: <span class="font-semibold"> {order.nova_poshta} </span></p>
+<div className="mb-4">
+    <p className="text-gray-600">Номер накладної пошта: <span className="font-semibold"> {order.nova_poshta} </span></p>
 </div>
-<div class="mt-4">
-    <h2 class="text-xl font-semibold mb-2">Товари в кошику</h2>
-    <p class="text-gray-600">Telegram ID: <span class="font-semibold">{ JSON.parse(order.cart_json).toString()}</span></p>
+<div className="mt-4">
+    <h2 className="text-xl font-semibold mb-2">Товари в кошику</h2>
+    <p className="text-gray-600">Telegram ID: <span className="font-semibold">{ order.cart_json}</span></p>
       
     
 </div>
-<div class="mb-4">
-    <p class="text-gray-600">Загальна сума: <span class="font-semibold">{order.sum}</span></p>
+<div className="mb-4">
+    <p className="text-gray-600">Загальна сума: <span className="font-semibold">{order.sum}</span></p>
 </div>
 
-<div class="mb-4">
-    <p class="text-gray-600">Коментар: <span class="font-semibold">[ {order.comment} ]</span></p>
+<div className="mb-4">
+    <p className="text-gray-600">Коментар: <span className="font-semibold">[ {order.comment} ]</span></p>
 </div>
 
-<div class="mb-4">
-    <p class="text-gray-600">Статус: <span class="font-semibold text-green-500"> {order.status==0?'Нове замовлення':order.status==1?'Опрацьовано':'Виконане'}</span></p>
+<div className="mb-4">
+    <p className="text-gray-600">Статус: <span className="font-semibold text-green-500"> {order.status==0?'Нове замовлення':order.status==1?'Опрацьовано':'Виконане'}</span></p>
 </div>
 <div class="mb-4 flex gap-1">
 <Button variant='outlined' onClick={()=>setOpenEdit(true)}>Редагувати</Button>    
-<Button variant='outlined'>Видалити</Button>    
+<Button variant='outlined'onClick={handleDeleteOrder} >Видалити</Button>    
 <Button variant='outlined' onClick={handleInProgress} >В Опрацьовані</Button>    
 </div>
 
