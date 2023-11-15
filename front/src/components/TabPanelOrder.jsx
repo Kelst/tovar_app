@@ -31,7 +31,7 @@ const updatePAge=useStore(state=>state.updatePAge)
     
   return (
    
-    <TabPanel value={value} className='grid w-[350px]  grid-cols-1 gap-1 md:grid-cols-3 md:gap-x-[200px] md:w-[1200px] absolute top-[150px]' >
+    <TabPanel value={value} className='grid w-[280px]  grid-cols-1 gap-1 md:grid-cols-3 md:gap-x-[200px] md:w-[1200px] absolute top-[150px] ' >
         {
           orders.length!=0?
             orders.map(e=>{

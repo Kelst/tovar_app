@@ -48,7 +48,7 @@ export default function OrderItem({order,setOrders,setValue}) {
         <div>
               {/* <ModalEdited good={good} setGoods={setGoods} open={openEdit} setOpen={setOpenEdit}  />  */}
    
-              <div class="relative  w-[310px] md:w-[400px] bg-white rounded p-6 shadow-md">
+              <div class="relative  w-[280px] md:w-[400px] bg-white rounded p-6 shadow-md">
 
 <h1 className="text-2xl font-semibold mb-4">Інформація про замовлення</h1>
 <CopyToClipboardButton id={order.id}/>

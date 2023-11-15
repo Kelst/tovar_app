@@ -36,7 +36,7 @@ const handleRemoveCat=()=>{
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
          
-          <TabList  onChange={handleChange} aria-label="lab API tabs example">
+          <TabList sx={{overflow:"scroll"}} scrollButtons="auto"  onChange={handleChange} aria-label="lab API tabs example">
           
            
                  <Tab  key={0} label="Нові замовлення" value={`${0}`} />

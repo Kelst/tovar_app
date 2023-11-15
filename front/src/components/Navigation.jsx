@@ -13,14 +13,22 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 const pages = ['Товари', 'Замовлення', 'Історія'];
 
 
 export default function Navigation() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [menuItem, setMenuItem] = React.useState("Item1");
-  
+    const navigate=useLocation()
+    
+     useEffect(()=>{
+       if(navigate.pathname=="/orders"){
+        setMenuItem("Item2")
+       }
+     },[])
+
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
     };
@@ -84,11 +92,18 @@ export default function Navigation() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+              {pages.map((page) =>        {
+                
+                if(page=='Замовлення')
+                {
+                  return  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <NavLink to={"/orders"}> <Typography textAlign="center">{page}</Typography></NavLink>
+                 </MenuItem>
+                } else 
+                return  <MenuItem key={page} onClick={handleCloseNavMenu}>
                  <NavLink to={"/"}> <Typography textAlign="center">{page}</Typography></NavLink>
-                </MenuItem>
-              ))}
+                </MenuItem>}
+              )}
             </Menu>
           </Box>
           <SettingsIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -133,7 +148,7 @@ export default function Navigation() {
                 Замовлення
               </Button>
                 </NavLink>
-                <NavLink to="/">
+                {/* <NavLink to="/">
                 <Button
                 key={1}
                 onClick={()=>handleCloseNavMenu("Item3")}
@@ -141,7 +156,7 @@ export default function Navigation() {
               >
                 Історія
               </Button>
-                </NavLink>
+                </NavLink> */}
                 </>
                 
             }
