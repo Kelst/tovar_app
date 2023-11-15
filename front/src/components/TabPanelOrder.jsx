@@ -34,7 +34,7 @@ const updatePAge=useStore(state=>state.updatePAge)
   return (
    
     <TabPanel value={value} className='grid w-[280px]  grid-cols-1 gap-1 md:grid-cols-3 md:gap-x-[200px] md:w-[1200px] absolute top-[180px] ' >
-       <TextField 
+      <div className=' absolute top-[20px] left-5 '> <TextField 
           id="standard-search"
           label="Пошук"
           type="search"
@@ -44,7 +44,7 @@ const updatePAge=useStore(state=>state.updatePAge)
           }}
           variant="standard"
        sx={{marginLeft:"5px",marginTop:"-60px"}}
-        />
+        /></div>
    {orders.length !== 0 ? (
   orders
     .filter((e) => e.phone.includes(search) ||  // Шукаємо в phone
