@@ -51,9 +51,9 @@ export default function ModalAdd({id_cat,open,setOpen,setGoods}) {
 
   function areFieldsNotEmpty() {
     if (
-      name.trim() === "" ||
-      text.trim() === "" ||
-      title.trim() === ""
+      name?.trim() === "" ||
+      text?.trim() === "" ||
+      title?.trim() === ""
 
     ) {
       return false; 
@@ -231,7 +231,7 @@ setOpen(false);
               <TextField
                
                id="title"
-               label=" Короткий опис"
+               label="Характеристики товару"
                value={title}
                multiline
                maxRows={3}
