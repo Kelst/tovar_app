@@ -1,4 +1,4 @@
-import { Button, Card, CardMedia } from '@mui/material'
+import { Button, Card, CardMedia, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
@@ -9,7 +9,11 @@ export default function CardItem({good,setGoods}) {
     const [openEdit,setOpenEdit]=useState(false)
     const [openDialog,setOpenDialog]=useState(false)
     const deleteGood=useStore(state=>state.deleteGood)
-
+ // Функція для розекранування HTML-розмітки
+ const unescapeHTML = (text) => {
+  const doc = new DOMParser().parseFromString(text, "text/html");
+  return doc.body.innerHTML;
+};
     const handleOpenEdited = () => setOpenEdit(true);
     const deleteGoodById=async ()=>{
       
@@ -36,7 +40,21 @@ export default function CardItem({good,setGoods}) {
 <span className='font-bold'>Короткий опис:</span> {good.title}
 </div>
 <div className='mb-2'>
-<span className='font-bold'>Опис товару:</span> {good.text}
+<TextField
+value={unescapeHTML(good.text)}
+multiline={6}
+fullWidth
+disabled
+sx={{
+ '.Mui-disabled	':{
+  bgcolor:'white',
+  WebkitTextFillColor: "black",
+
+
+  
+ }
+}}
+/>
 </div>
 <div className='mb-2'>
 <span className='font-bold'>Кількість:</span> {good.quantity}

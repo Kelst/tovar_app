@@ -52,7 +52,16 @@ export default function ModalAdd({id_cat,open,setOpen,setGoods}) {
 
   const setAlertText=useStore(state=>state.setAlertText)
   const setAlertOpen=useStore(state=>state.setAlertOpen)
+  const escapeHTML = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent || "";
+  };
 
+  // Функція для розекранування HTML-розмітки
+  const unescapeHTML = (text) => {
+    const doc = new DOMParser().parseFromString(text, "text/html");
+    return doc.body.innerHTML;
+  };
   function areFieldsNotEmpty() {
     if (
       name?.trim() === "" ||
@@ -260,7 +269,8 @@ if (inputText.length <= 300) {
                  const inputText = event.target.value;
 
  if (inputText.length <= 2000) {
-   setText(inputText);
+  
+   setText(escapeHTML (inputText));
  }
                }}
              />
