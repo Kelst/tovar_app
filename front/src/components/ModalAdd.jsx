@@ -167,7 +167,7 @@ const edited={
   unique:unique,
   uniquePrice:uniquePrice,
 }
-const data= await addGood(edited)
+const data= await c(edited)
 setGoods(prev => {
   return [...prev,data]
 });

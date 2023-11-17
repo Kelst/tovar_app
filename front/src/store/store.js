@@ -53,7 +53,7 @@ const useStore = create( (set,get) => ({
   }
 },
  logIn:async(login,pass)=>{
-  let resp= await axios.post("https://shop-intelekt.pp.ua/api/login",{login:login.trim(),password:pass.trim()})
+  let resp= await axios.post("https://shop-intelekt.pp.ua/api/login",{login:login?.trim(),password:pass?.trim()})
   let data=resp.data
 
   if(data.flag){
@@ -225,6 +225,7 @@ setAlertOpen(f){
       return data
       
     } catch (error) {
+      console.log(error,"FROM ADD GOOD");
       return false
     }
 

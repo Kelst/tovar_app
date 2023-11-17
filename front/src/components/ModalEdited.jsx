@@ -92,10 +92,10 @@ await getClipboardContents()
 
   function areFieldsNotEmpty() {
     if (
-      name.trim() === "" ||
+      name?.trim() === "" ||
       cost==0 ||
-      text.trim() === "" ||
-      url.trim() === "" 
+      text?.trim() === "" ||
+      url?.trim() === "" 
 
     ) {
       return false; // Якщо хоча б одне поле порожнє, повертаємо false
