@@ -154,7 +154,7 @@ if(resp.data){
 }
 };
 const handleSave= async()=>{
-
+console.log("SAVE");
 const edited={
   id_cat:id_cat,
   name:name,
@@ -167,7 +167,7 @@ const edited={
   unique:unique,
   uniquePrice:uniquePrice,
 }
-const data= await c(edited)
+const data= await addGood(edited)
 setGoods(prev => {
   return [...prev,data]
 });
