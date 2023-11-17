@@ -92,7 +92,7 @@ setAlertOpen(f){
       const response=await $api.get("/get-all-goods")
       const data=response.data
 
-      set(state=>({goods:[...data]}))
+      set(state=>({...state,goods:[...data]}))
     } catch (error) {
       console.log(error);
       
