@@ -18,11 +18,15 @@ const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
+  width:900,
   transform: "translate(-50%, -50%)",
-  width: 900,
   bgcolor: "background.paper",
   border: "none",
-  
+  height:"90vh",
+  overflow: 'auto',
+  '@media (max-width: 1000px)': {
+    width: '70%',
+  },
 
   boxShadow: 24,
   p: 4,
