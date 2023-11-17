@@ -44,16 +44,18 @@ export default function CardItem({good,setGoods}) {
 value={unescapeHTML(good.text)}
 multiline={6}
 fullWidth
-disabled
+
 sx={{
  '.Mui-disabled	':{
   bgcolor:'white',
   WebkitTextFillColor: "black",
+  color:'black'
 
 
   
  }
 }}
+
 />
 </div>
 <div className='mb-2'>
