@@ -1,5 +1,5 @@
 import { Button, Card, CardMedia } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import ModalEdited from './ModalEdited';
@@ -10,11 +10,21 @@ import CopyToClipboardButton from './CopyToClipboardButton';
 export default function OrderItem({order,setOrders,setValue}) {
     const [openEdit,setOpenEdit]=useState(false)
     const [openDialog,setOpenDialog]=useState(false)
+    const [login,setLogin]=useState("")
     const setInProgress=useStore(state=>state.setInProgress)
     const setInDone=useStore(state=>state.setInDone)
     const setUpdatePAge=useStore(state=>state.setUpdatePAge)
     const deleteOrder=useStore(state=>state.deleteOrder)
-  
+    const getLogin=useStore(state=>state.getLogin)
+    useEffect(()=>{
+
+     async function getFetch(){
+       const data=await getLogin(order.telegram_id,order.phone)
+       setLogin(data)
+      }
+      getFetch()
+      
+    },[login])
   const handleDeleteOrder=async()=>{
     setOpenDialog(true)
     
@@ -54,6 +64,7 @@ export default function OrderItem({order,setOrders,setValue}) {
 <CopyToClipboardButton id={order.id}/>
 <div class="mt-6">
     <p className="text-gray-600">Ім'я: <span className="font-semibold">{order.name}</span></p>
+    <p className="text-gray-600">Логін <span className="font-semibold">{login}</span></p>
     <p className="text-gray-600">Телефон: <span className="font-semibold">{order.phone}</span></p>
     <p className="text-gray-600">Telegram ID: <span className="font-semibold">{order.telegram_id}</span></p>
 </div>
@@ -68,7 +79,7 @@ export default function OrderItem({order,setOrders,setValue}) {
 </div>
 <div className="mt-4">
     <h2 className="text-xl font-semibold mb-2">Товари в кошику</h2>
-    <p className="text-gray-600">Telegram ID: <span className="font-semibold">{ order.cart_json}</span></p>
+    <p className="text-gray-600"> Замовлення: <span className="font-semibold">{ order.cart_json}</span></p>
       
     
 </div>

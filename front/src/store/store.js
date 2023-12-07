@@ -142,6 +142,21 @@ setAlertOpen(f){
       
     }
   },
+  async getLogin (id,phone) {
+    try {
+      const response=await $api.post("/get-login/",{id:id,phone:phone})
+      const data=response.data
+      if(data==false){
+        return ''
+      }
+      return data
+    } catch (error) { 
+      console.log(error,"GET LOGIN");
+      return ''
+    }
+  },
+  
+  
   async deleteGood (id) {
     try {
       const response=await $api.put("/delete-good",{id:id})
