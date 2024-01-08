@@ -15,21 +15,13 @@ import ModalDeleteCat from './ModalDeleteCat';
 import TabPanelOrder from './TabPanelOrder';
 export default function OrdersTab() {
 
-  const [openAdd, setOpenAdd] = React.useState(false);
-  const [openDelete, setOpenDelete] = React.useState(false);
-  const cat=useStore(state=>state.cat)
+
   const [value, setValue] = React.useState(`0`);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-const handleAddCat=()=>{
-  setOpenAdd(true)
-}
 
-const handleRemoveCat=()=>{
-  setOpenDelete(true)
-}
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
      

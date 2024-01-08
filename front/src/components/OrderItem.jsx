@@ -1,8 +1,6 @@
 import { Button, Card, CardMedia } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import EditIcon from '@mui/icons-material/Edit';
-import ModalEdited from './ModalEdited';
+
 import DialogAlert from './DialogAlert';
 import useStore from '../store/store';
 import ModalEditedOrder from './ModalEditedOrder';

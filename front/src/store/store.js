@@ -120,6 +120,17 @@ setAlertOpen(f){
       
     }
   },
+  async getPayment () {
+    try {
+      const response=await $api.get("/get-all-payment/")
+      const data=response.data
+      console.log(data);
+     return data
+    } catch (error) {
+      console.log(error);
+      
+    }
+  },
   async getOrder (id_cat) {
     try {
       const response=await $api.post("/get-order",{id:id_cat})
@@ -225,6 +236,25 @@ setAlertOpen(f){
   async addCat(cat){
     try {
       const resp= await $api.post("/add-cat",{...cat})
+      const data=resp.data
+      set(state=>({...state,cat:[...state.cat,data]}))
+      return data
+    } catch (error) {
+      return false
+    }
+
+  },
+  async setPayment(id,id_payment){
+    try {
+      try {
+        const response=await $api.put("/set-payment",{id:id,id_payment:id_payment})
+        const data= response.data
+        return true
+      } catch (error) {
+        return false
+        console.log(error);
+        
+      }
       const data=resp.data
       set(state=>({...state,cat:[...state.cat,data]}))
       return data
