@@ -5,6 +5,7 @@ import DialogAlert from './DialogAlert';
 import useStore from '../store/store';
 import ModalEditedOrder from './ModalEditedOrder';
 import CopyToClipboardButton from './CopyToClipboardButton';
+
 export default function OrderItem({order,setOrders,setValue}) {
     const [openEdit,setOpenEdit]=useState(false)
     const [openDialog,setOpenDialog]=useState(false)
@@ -87,6 +88,9 @@ export default function OrderItem({order,setOrders,setValue}) {
 
 <div className="mb-4">
     <p className="text-gray-600">Коментар: <span className="font-semibold">[ {order.comment} ]</span></p>
+</div>
+<div className="mb-4">
+    <p className="text-gray-600">Олата: <span className="font-semibold">Прикріплена оплата  ID:[ {order.id_payment} ]</span></p>
 </div>
 
 <div className="mb-4">

@@ -13,7 +13,40 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import SelectedCustum from './SelectedCustum';
-export default function PaymentTab({open,setOpen,payment}) {
+import useStore from '../store/store';
+function checkIdInPaymentsAndOrders(data, id) {
+  // Перевірка в масиві payment
+  for (let payment of data.payment) {
+      if (payment.id === id) {
+          return true;
+      }
+  }
+
+  // Перевірка в масиві orders
+  for (let order of data.orders) {
+      if (order.id_payment === id) {
+          return true;
+      }
+  }
+
+  // Якщо id не знайдено в жодному з масивів
+  return false;
+}
+export default function PaymentTab({open,setOpen}) {
+
+  const [payment,setPayment]=React.useState(null)
+  const [flag,setFlag]=React.useState(false)
+  const getPayment=useStore(state=>state.getPayment) 
+  React.useEffect(()=>{
+    async function  fetchData(id) 
+    {
+      
+       const data1=await getPayment()
+       setPayment(data1)
+       console.log(data1,"FIRST");
+    }
+    fetchData()
+  },[flag])
   const theme = useTheme();
 
   const handleClose = () => {
@@ -40,8 +73,9 @@ export default function PaymentTab({open,setOpen,payment}) {
                 <div>
             {
                 payment?.payment.map(e=>{
-                  
-                return <div  key={e.id} className=' border p-2 '>
+                  let flag=checkIdInPaymentsAndOrders(payment,e.id)
+                return <div  key={e.id} className={flag?'bg-green-200 p-2 rounded mb-1':` border p-2 `}>
+                  {flag?<p className=' uppercase font-bold'>Рахунок прикріплений до замовлення </p>:""}
                          <p>Кошти поступили: <span className=' font-bold'>  {new Date( e.date).toLocaleString()}</span></p> 
                          <div className=' mb-6' >Сума  <span className=' font-bold'>{e.sum}</span></div> 
                     
@@ -57,7 +91,7 @@ export default function PaymentTab({open,setOpen,payment}) {
                     return <div key={e.id} className=' border p-2 '>
                              <p> Замовлення:  <span className=' font-bold'> {new Date( e.date).toLocaleString()}</span> Сума замовлення:  <span className=' font-bold'> {e.sum}</span> Номер замовлення: <span className=' font-bold'> {e.id}</span> </p> 
                              <div  className=' font-bold mb-6'> {e.name}</div> 
-                             <SelectedCustum pays={payment?.payment} idOrders={e?.id} />
+                             <SelectedCustum pays={payment?.payment} payment={payment} idOrders={e?.id} order={e} setFlag={setFlag} />
                            </div>
                     })
             }
@@ -67,9 +101,7 @@ export default function PaymentTab({open,setOpen,payment}) {
 
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Зберегти
-          </Button>
+       
           <Button  onClick={handleClose}>
             Закрити
           </Button>
