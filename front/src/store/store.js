@@ -249,7 +249,17 @@ setAlertOpen(f){
       try {
         const response=await $api.put("/set-payment",{id:id,id_payment:id_payment})
         const data= response.data
-        return true
+        if(data.flag==true){
+       
+     
+          set(state=>({...state,alertText:"Привязано оплату до замовлення",alertOpen:true}))
+         
+          return true
+
+
+        }else {           console.log(data,"DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        set(state=>({...state,alertText:data.desc,alertOpen:true}))
+         return false}
       } catch (error) {
         return false
         console.log(error);
@@ -258,6 +268,39 @@ setAlertOpen(f){
       const data=resp.data
       set(state=>({...state,cat:[...state.cat,data]}))
       return data
+    } catch (error) {
+      return false
+    }
+
+  },
+
+
+  async sendSms(order){
+   
+    try {
+      try {
+        const response=await $api.post("/send-sms",{order:order})
+        const data= response.data
+        if(data==true){
+       
+     
+          set(state=>({...state,alertText:"Повідомлення надіслано",alertOpen:true}))
+         
+          return true
+
+
+        }else {   
+            
+        set(state=>({...state,alertText:'Помилка при надсиланні смс',alertOpen:true}))
+         return false}
+      } catch (error) {
+        
+         console.log(error);
+        return false
+       
+        
+      }
+     
     } catch (error) {
       return false
     }

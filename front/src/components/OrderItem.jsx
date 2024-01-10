@@ -12,6 +12,7 @@ export default function OrderItem({order,setOrders,setValue}) {
     const [login,setLogin]=useState("")
     const setInProgress=useStore(state=>state.setInProgress)
     const setInDone=useStore(state=>state.setInDone)
+    const sendSms=useStore(state=>state.sendSms)
     const setUpdatePAge=useStore(state=>state.setUpdatePAge)
     const deleteOrder=useStore(state=>state.deleteOrder)
     const getLogin=useStore(state=>state.getLogin)
@@ -62,7 +63,17 @@ export default function OrderItem({order,setOrders,setValue}) {
 <h1 className="text-2xl font-semibold mb-4">Інформація про замовлення</h1>
 <CopyToClipboardButton id={order.id}/>
 <div class="mt-6">
-    <p className="text-gray-600">Ім'я: <span className="font-semibold">{order.name}</span></p>
+  <div className='flex justify-end '>
+  {order.address!='ТЦ "Проспект", оф. № 128А (праворуч від ескалатору)'&&order.address!='ТРЦ «DEPOt» (2-й поверх)' && order.status==0 && <Button
+  onClick={
+    async()=>{
+    await sendSms(order)
+    console.log("AAAA");
+  }}
+  fullWidth  variant='outlined'>Надіслати рахунок на оплату</Button>}
+
+  </div>
+    <p className="text-gray-600 mt-2">Ім'я: <span className="font-semibold">{order.name}</span></p>
     <p className="text-gray-600">Логін <span className="font-semibold">{login}</span></p>
     <p className="text-gray-600">Телефон: <span className="font-semibold">{order.phone}</span></p>
     <p className="text-gray-600">Telegram ID: <span className="font-semibold">{order.telegram_id}</span></p>

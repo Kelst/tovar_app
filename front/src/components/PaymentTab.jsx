@@ -75,10 +75,10 @@ export default function PaymentTab({open,setOpen}) {
                 payment?.payment.map(e=>{
                   let flag=checkIdInPaymentsAndOrders(payment,e.id)
                 return <div  key={e.id} className={flag?'bg-green-200 p-2 rounded mb-1':` border p-2 `}>
-                  {flag?<p className=' uppercase font-bold'>Рахунок прикріплений до замовлення </p>:""}
+                  {!flag?<p className=' uppercase font-bold'>Рахунок прикріплений до замовлення </p>:""}
                          <p>Кошти поступили: <span className=' font-bold'>  {new Date( e.date).toLocaleString()}</span></p> 
                          <div className=' mb-6' >Сума  <span className=' font-bold'>{e.sum}</span></div> 
-                    
+                          <div className=' font-bold  text-xl'>ID транзакції: {e.id}</div>
                        </div>
                 })
             }</div>
@@ -89,7 +89,8 @@ export default function PaymentTab({open,setOpen}) {
                  payment?.orders.map(e=>{
                   
                     return <div key={e.id} className=' border p-2 '>
-                             <p> Замовлення:  <span className=' font-bold'> {new Date( e.date).toLocaleString()}</span> Сума замовлення:  <span className=' font-bold'> {e.sum}</span> Номер замовлення: <span className=' font-bold'> {e.id}</span> </p> 
+                             <p> Замовлення: <div  className=' font-bold'>Адреса доставки: {e.address}</div>
+                              <span className=' font-bold'> Заявка створена: {new Date( e.date).toLocaleString()}</span><div></div> Сума замовлення:  <span className=' font-bold'> {e.sum}</span> <div></div> Номер замовлення: <span className=' font-bold'> {e.id}</span> </p> 
                              <div  className=' font-bold mb-6'> {e.name}</div> 
                              <SelectedCustum pays={payment?.payment} payment={payment} idOrders={e?.id} order={e} setFlag={setFlag} />
                            </div>

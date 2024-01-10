@@ -50,7 +50,7 @@ export default function SelectedCustum({pays,idOrders,order,setFlag,payment}) {
        
       </Select>
     </FormControl>
-     <Button disabled={pay==0?true:false}  onClick={async ()=>{
+     <Button disabled={pay==0||pay==null?true:false}  onClick={async ()=>{
       await  setPayment(idOrders,pay)
       setFlag(state=>!state)
      }}  >Привязати </Button>
