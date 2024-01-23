@@ -19,17 +19,16 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 900,
+  width: "90%", // Ширина змінена на відсотки
+  height:"90%",
   bgcolor: "background.paper",
   border: "none",
-  
-
   boxShadow: 24,
   p: 4,
 };
 
 
-export default function ModalEditedOrder({ order,open,setOpen,setOrder}) {
+export default function ModalEditedOrder({ order,open,setOpen,setOrder,setUpdateDate}) {
   
   const [name, setName] = React.useState("");
   const [novaPoshta, setnovaPoshta] = React.useState("");
@@ -64,6 +63,8 @@ export default function ModalEditedOrder({ order,open,setOpen,setOrder}) {
 const handleClose = () => setOpen(false);
 
 const handleSave= async()=>{
+try {
+  
 
 const edited={
   ...order,
@@ -79,9 +80,13 @@ const edited={
    
 }
 await updateRowsOrder(edited)
-
+setUpdateDate()
 
 setOpen(false);
+} catch (error) {
+  setOpen(false);
+  setUpdateDate()
+}
 }
  
   useEffect(()=>{
@@ -108,6 +113,7 @@ setOpen(false);
         aria-describedby="transition-modal-description"
         open={open}
         onClose={handleClose}
+     
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
        
@@ -119,7 +125,7 @@ setOpen(false);
       >
       
         <Fade in={open}>
-          <Box sx={style}  className=" rounded-xl">
+          <Box sx={style}  className=" overflow-scroll rounded-xl">
 
             <div className="flex flex-col border-none outline-none gap-4">
               <TextField

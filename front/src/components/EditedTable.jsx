@@ -335,6 +335,7 @@ export default function EditedTable({shop_goods,shop_cat}) {
       sx={{
         height: 500,
         width: '100%',
+
   
         '& .actions': {
           color: 'text.secondary',

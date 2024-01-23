@@ -6,7 +6,7 @@ import useStore from '../store/store';
 import ModalEditedOrder from './ModalEditedOrder';
 import CopyToClipboardButton from './CopyToClipboardButton';
 
-export default function OrderItem({order,setOrders,setValue}) {
+export default function OrderItem({order,setOrders,setValue,setUpdateDate}) {
     const [openEdit,setOpenEdit]=useState(false)
     const [openDialog,setOpenDialog]=useState(false)
     const [login,setLogin]=useState("")
@@ -50,7 +50,7 @@ export default function OrderItem({order,setOrders,setValue}) {
     // } 
   return (
     <div>
-        <ModalEditedOrder order={order} setOpen={setOpenEdit} open={openEdit} setOrder={setOrders} />
+        <ModalEditedOrder order={order} setOpen={setOpenEdit} open={openEdit} setOrder={setOrders} setUpdateDate={setUpdateDate} />
           <DialogAlert textAlert={'Ви хочете видалити замовлення?'}  handlefunction={()=>{
               setUpdatePAge()
             deleteOrder(order.id)}} setOpen={setOpenDialog} open={openDialog  } />

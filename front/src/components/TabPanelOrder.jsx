@@ -14,6 +14,7 @@ export default function TabPanelOrder({value,setValue,update}) {
     const [payment,setPayment]=useState(null)
     const [search,setSearch]=React.useState("")
     const [open, setOpen] = React.useState(false);
+    const [updateDate, setUpdateDate] = React.useState(false);
 
 const updatePAge=useStore(state=>state.updatePAge)
 const handlePayment=()=>{
@@ -30,7 +31,7 @@ const handlePayment=()=>{
            console.log(data1,"FIRST");
         }
         fetchData(value)
-    },[value,updatePAge,search])
+    },[value,updatePAge,search,updateDate])
 
     
   return (
@@ -61,7 +62,7 @@ const handlePayment=()=>{
   orders
     .filter((e) => e.phone.includes(search) || 
     e.name.toLowerCase().includes(search.toLowerCase()))
-    .map((e) => <OrderItem key={e.id} order={e} setOrders={setOrders} setValue={setValue} />)
+    .map((e) => <OrderItem key={e.id} order={e} setOrders={setOrders} setValue={setValue} setUpdateDate={setUpdateDate} />)
 ) : (
   <div className='text-left font-bold text-2xl'>
     <p>Немає замовлень в цій категорії</p>
