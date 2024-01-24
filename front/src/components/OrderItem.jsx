@@ -13,6 +13,8 @@ export default function OrderItem({order,setOrders,setValue,setUpdateDate}) {
     const setInProgress=useStore(state=>state.setInProgress)
     const setInDone=useStore(state=>state.setInDone)
     const sendSms=useStore(state=>state.sendSms)
+    const sendSmsPayments=useStore(state=>state.sendSmsPayments)
+    
     const setUpdatePAge=useStore(state=>state.setUpdatePAge)
     const deleteOrder=useStore(state=>state.deleteOrder)
     const getLogin=useStore(state=>state.getLogin)
@@ -84,8 +86,15 @@ export default function OrderItem({order,setOrders,setValue,setUpdateDate}) {
 <div className="mb-4">
     <p className="text-gray-600">Адреса: <span className="font-semibold">[ {order.address} ]</span></p>
 </div>
-<div className="mb-4">
+<div className="mb-4 border p-2 shadow-sm">
     <p className="text-gray-600">Номер накладної пошта: <span className="font-semibold"> {order.nova_poshta} </span></p>
+    {order.nova_poshta?<Button
+  onClick={
+    async()=>{
+    await sendSmsPayments(order,`Ваше ТТН: ${order.nova_poshta} , Дякуємо за ваше замовлення !!! `)
+   
+  }}
+    variant='outlined'> Надіслати ТТН</Button>:""}
 </div>
 <div className="mt-4">
     <h2 className="text-xl font-semibold mb-2">Товари в кошику</h2>
@@ -102,6 +111,13 @@ export default function OrderItem({order,setOrders,setValue,setUpdateDate}) {
 </div>
 <div className="mb-4">
     <p className="text-gray-600">Олата: <span className="font-semibold">Прикріплена оплата  ID:[ {order.id_payment} ]</span></p>
+    {order.id_payment?<Button
+  onClick={
+    async()=>{
+    await sendSmsPayments(order,`Ваша оплата успішно отримана, замовлення буде надіслано протягом 1-2 роб.днів`)
+   
+  }}
+  fullWidth  variant='outlined'>Повідомити про надходження коштів</Button>:""}
 </div>
 
 <div className="mb-4">

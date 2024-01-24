@@ -18,9 +18,9 @@ export default function DialogAlert({textAlert,handlefunction,setOpen,open}) {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleDelete=()=>{
+  const handleDelete= async()=>{
     setLoader(true)
-    handlefunction()
+   await handlefunction()
     setLoader(false)
     setOpen(false);
 

@@ -14,8 +14,10 @@ export default function TabPanelOrder({value,setValue,update}) {
     const [payment,setPayment]=useState(null)
     const [search,setSearch]=React.useState("")
     const [open, setOpen] = React.useState(false);
-    const [updateDate, setUpdateDate] = React.useState(false);
-
+    const [updateDate, setUpdateDates] = React.useState(false);
+const setUpdateDate=()=>{
+  setUpdateDates(prev=>!prev)
+}
 const updatePAge=useStore(state=>state.updatePAge)
 const handlePayment=()=>{
     setOpen(true)

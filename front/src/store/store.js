@@ -306,6 +306,37 @@ setAlertOpen(f){
     }
 
   },
+  async sendSmsPayments(order,text){
+   
+    try {
+      try {
+        const response=await $api.post("/send-sms-payment",{order:order,text:text})
+        const data= response.data
+        if(data==true){
+       
+     
+          set(state=>({...state,alertText:"Повідомлення надіслано",alertOpen:true}))
+         
+          return true
+
+
+        }else {   
+            
+        set(state=>({...state,alertText:'Помилка при надсиланні смс',alertOpen:true}))
+         return false}
+      } catch (error) {
+        
+         console.log(error);
+        return false
+       
+        
+      }
+     
+    } catch (error) {
+      return false
+    }
+
+  },
   async addGood(good){
     try {
       const resp= await $api.post("/add-good",{...good})
