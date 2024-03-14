@@ -14,16 +14,17 @@ export default function TabPanelOrder({value,setValue,update}) {
     const [payment,setPayment]=useState(null)
     const [search,setSearch]=React.useState("")
     const [open, setOpen] = React.useState(false);
+    const [reload, setReload] = React.useState(false);
     const [updateDate, setUpdateDates] = React.useState(false);
 const setUpdateDate=()=>{
   setUpdateDates(prev=>!prev)
 }
 const updatePAge=useStore(state=>state.updatePAge)
 const handlePayment=()=>{
-    setOpen(true)
+    setReload(state=>!state)
 }
     useEffect(()=>{
-      console.log("UPDATE");
+      console.log("reload");
        async function  fetchData(id) 
         {
            const data=await getOrders(id)
@@ -33,7 +34,7 @@ const handlePayment=()=>{
            console.log(data1,"FIRST");
         }
         fetchData(value)
-    },[value,updatePAge,search,updateDate])
+    },[value,updatePAge,search,updateDate,reload])
 
     
   return (
@@ -58,7 +59,7 @@ const handlePayment=()=>{
            
            value==0&& <div className=' absolute top-[-25px] right-[60%] z-10'>
             <PaymentTab open={open} setOpen={setOpen} payment={payment}/>  
-           <Button variant="contained" onClick={handlePayment}>Оплати</Button>
+           <Button variant="contained" onClick={handlePayment}>Оновити</Button>
 </div>}
    {orders.length !== 0 ? (
   orders

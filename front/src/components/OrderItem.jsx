@@ -5,6 +5,7 @@ import DialogAlert from './DialogAlert';
 import useStore from '../store/store';
 import ModalEditedOrder from './ModalEditedOrder';
 import CopyToClipboardButton from './CopyToClipboardButton';
+import PaidIcon from '@mui/icons-material/Paid';
 
 export default function OrderItem({order,setOrders,setValue,setUpdateDate}) {
     const [openEdit,setOpenEdit]=useState(false)
@@ -14,6 +15,15 @@ export default function OrderItem({order,setOrders,setValue,setUpdateDate}) {
     const setInDone=useStore(state=>state.setInDone)
     const sendSms=useStore(state=>state.sendSms)
     const sendSmsPayments=useStore(state=>state.sendSmsPayments)
+    const getPayByLogin=useStore(state=>state.getPayByLogin)
+    const [checkPay,setCheckPay]=useState(false)
+       async function checkPays() {
+        const data=await getPayByLogin(login,order.sum,order.id)
+        console.log(data,"DATA");
+        if(data.flag){
+          setCheckPay(true)
+        }
+      }
     
     const setUpdatePAge=useStore(state=>state.setUpdatePAge)
     const deleteOrder=useStore(state=>state.deleteOrder)
@@ -22,7 +32,9 @@ export default function OrderItem({order,setOrders,setValue,setUpdateDate}) {
 
      async function getFetch(){
        const data=await getLogin(order.telegram_id,order.phone)
+       await checkPays()
        setLogin(data)
+       
       }
       getFetch()
       
@@ -42,6 +54,7 @@ export default function OrderItem({order,setOrders,setValue,setUpdateDate}) {
  
         
     }
+  
     const handleOpenEdited = () => setOpenEdit(true);
     // const deleteGoodById=async ()=>{
       
@@ -79,6 +92,7 @@ export default function OrderItem({order,setOrders,setValue,setUpdateDate}) {
     <p className="text-gray-600">Логін <span className="font-semibold">{login}</span></p>
     <p className="text-gray-600">Телефон: <span className="font-semibold">{order.phone}</span></p>
     <p className="text-gray-600">Telegram ID: <span className="font-semibold">{order.telegram_id}</span></p>
+   {order.address!='ТЦ "Проспект", оф. № 128А (праворуч від ескалатору)'&&order.address!='ТРЦ «DEPOt» (2-й поверх)'&&  order.status ==0 &&<p className="text-gray-600">Оплачено <PaidIcon/>? <span className={`font-semibold ${checkPay?'text-green-500':' text-red-600'} `}>{checkPay?'Оплачено':'Неоплачено!'}</span></p>}
 </div>
 <div className="mb-4">
     <p className="text-gray-600">Дата створення: <span className="font-semibold">[ {new Date( order.date).toLocaleString()  } ]</span></p>

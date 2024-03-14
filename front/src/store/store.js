@@ -98,6 +98,18 @@ setAlertOpen(f){
       
     }
   },
+
+  async getPayByLogin (login,sum,orderId) {
+    try {
+     
+      const response=await $api.post("/get-pay-by-login",{login:login,sum:sum,orderId:orderId})
+      const data=response.data
+     return data
+    } catch (error) {
+      console.log(error);
+      
+    }
+  },
   async getGoods (id_cat) {
     try {
      
