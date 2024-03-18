@@ -16,12 +16,21 @@ export default function OrderItem({order,setOrders,setValue,setUpdateDate}) {
     const sendSms=useStore(state=>state.sendSms)
     const sendSmsPayments=useStore(state=>state.sendSmsPayments)
     const getPayByLogin=useStore(state=>state.getPayByLogin)
+    const getPayByLoginDeposit=useStore(state=>state.getPayByLoginDeposit)
+    
     const [checkPay,setCheckPay]=useState(false)
        async function checkPays() {
         const data=await getPayByLogin(login,order.sum,order.id)
         console.log(data,"DATA");
         if(data.flag){
           setCheckPay(true)
+        }else{
+        
+          const data=await getPayByLoginDeposit(login,order.sum,order.id)
+          if(data.flag){
+            
+            setCheckPay(true)
+          }
         }
       }
     

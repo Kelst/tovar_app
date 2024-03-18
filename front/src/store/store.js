@@ -110,6 +110,17 @@ setAlertOpen(f){
       
     }
   },
+  async getPayByLoginDeposit (login,sum,orderId) {
+    try {
+      const response=await $api.post("/get-pay-by-login-deposit",{login:login,sum:sum,orderId:orderId})
+      const data=response.data
+      console.log("DEPOSIT",data);
+     return data
+    } catch (error) {
+      console.log(error);
+      
+    }
+  },
   async getGoods (id_cat) {
     try {
      
